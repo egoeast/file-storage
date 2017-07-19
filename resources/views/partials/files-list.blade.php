@@ -20,7 +20,7 @@
                                 <p class="uploaded" hidden="true" >{{ $file->created_at }}</p>
                                 <p class="token" hidden="true">{{ Session::get('_token') }}</p>
                                 <p >{{ $file->original_name }} </p>
-                                <p>Size : {{ $file->size }} Kb</p>
+                                <p>@lang('storage.size') {{ $file->size }} Kb</p>
                     @endif
                     <!--  {{ $i++ }}-->
                             </div>

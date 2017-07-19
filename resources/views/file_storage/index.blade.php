@@ -7,16 +7,18 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-md-7">
-                        <h3>Upload file</h3>
+                        <h3>@lang('storage.upload_files')</h3>
                     </div>
-                    <h3>Used space</h3>
+                    <div class="col-md-5">
+                        <h3>@lang('storage.used_space')</h3>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group">
                             <label class="input-group-btn">
                             <span class="btn btn-primary">
-                                Browse&hellip; <input name ='uploadFile[]' type="file" style="display: none;" multiple>
+                                @lang('storage.browse')&hellip; <input name ='uploadFile[]' type="file" style="display: none;" multiple>
                             </span>
                             </label>
                             <input type="text" class="form-control" readonly>
@@ -24,7 +26,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            {!! Form::submit('Upload', array('class'=>'btn btn-primary btn-block')) !!}
+                            {!! Form::submit(trans('storage.upload'), array('class'=>'btn btn-primary btn-block')) !!}
                         </div>
                     </div>
                     <div class="col-md-5 col-md-offset-1">
@@ -60,7 +62,7 @@
     {!! Form::close() !!}
 
     {!! Form::open(array('url'=>'mkdir','method'=>'POST')) !!}
-    <h3>Create Directory</h3>
+    <h3>@lang('storage.new_dir')</h3>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
@@ -69,7 +71,7 @@
             </div>
             <div class="col-md-2">
                 <div class="form-group">
-                    {!! Form::submit('Make Dir', ['class' => 'btn btn-primary btn-block form-control']) !!}
+                    {!! Form::submit(trans('storage.create'), ['class' => 'btn btn-primary btn-block form-control']) !!}
                 </div>
             </div>
         </div>
@@ -96,7 +98,7 @@
         </div>
         <div class="col-md-1">
             <div class="form-group">
-                {!! Form::submit('Search', ['class' => 'btn btn-primary btn-block form-control']) !!}
+                {!! Form::submit(trans('storage.search'), ['class' => 'btn btn-primary btn-block form-control']) !!}
             </div>
         </div>
         {!! Form::close() !!}
@@ -104,7 +106,7 @@
     <hr>
     </div>
     <hr>
-    @include('partials.files_list')
+    @include('partials.files-list')
     <hr>
         <div class="col-md-6 col-md-offset-5">
         {{ $files->links() }}

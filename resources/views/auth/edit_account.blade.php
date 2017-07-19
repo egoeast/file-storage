@@ -28,6 +28,7 @@
         {!! Form::hidden('is_blocked', 0) !!}
         {!! Form::label('is_blocked','Is blocked') !!}
         {!! Form::checkbox('is_blocked', 1) !!}
+
     </div>
 
     <div class="form-group">
@@ -40,4 +41,20 @@
     </div>
     {!! Form::close() !!}
     @include('errors.list')
+
+            <!-- Rectangular switch -->
+
+
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+    </label>
+
+    <!-- Rounded switch -->
+    <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+    </label>
+
 @stop
+

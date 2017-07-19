@@ -10,11 +10,11 @@
             <div class="col-md-2">
                 <div class="form-group">
 
-                    {!! Form::submit('Search', ['class' => 'btn btn-primary btn-block form-control']) !!}
+                    {!! Form::submit(trans('storage.search'), ['class' => 'btn btn-primary btn-block form-control']) !!}
                 </div>
             </div>
         </div>
     {!! Form::close() !!}
 
-   @include('partials.files_list')
+   @include('partials.files-list')
 @stop

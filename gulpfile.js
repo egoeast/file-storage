@@ -12,5 +12,11 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.less(['app.less','switch-material-design.less'],
+        'public/build/css');
 });
+
+//elixir(function(mix) {
+//    mix.scripts(['scrollUp.js', 'popUp.js'],
+//        'public/build/js');
+//});

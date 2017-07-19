@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('content')
     <table class="table table-hover">
-        <caption>Users table</caption>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Is admin</th>
-            <th>Is active</th>
-            <th>Is blocked</th>
-            <th>Max disk space</th>
-            <th>Disk space</th>
-            <th>Created at</th>
-            <th>Action</th>
+            <th>@lang('users.name')</th>
+            <th>@lang('users.email')</th>
+            <th>@lang('users.is_admin')</th>
+            <th>@lang('users.is_active')</th>
+            <th>@lang('users.is_blocked')</th>
+            <th>@lang('users.max_space')</th>
+            <th>@lang('users.current_space')</th>
+            <th>@lang('users.created')</th>
+            <th>@lang('users.action')</th>
         </tr>
     @foreach($users as $user)
             <tr>
@@ -22,13 +21,25 @@
                     {{ $user->email }}
                 </td>
                 <td>
-                    {{ $user->is_admin }}
+                    @if($user->is_admin)
+                        <i class="fa fa-check icon-green-center" aria-hidden="true"></i>
+                    @else
+                        <i class="fa fa-times icon-red-center" aria-hidden="true"></i>
+                    @endif
                 </td>
                 <td>
-                    {{ $user->is_active }}
+                    @if($user->is_active)
+                        <i class="fa fa-check icon-green-center" aria-hidden="true"></i>
+                    @else
+                        <i class="fa fa-times icon-red-center" aria-hidden="true"></i>
+                    @endif
                 </td>
                 <td>
-                    {{ $user->is_blocked }}
+                    @if($user->is_blocked)
+                        <i class="fa fa-check icon-green-center" aria-hidden="true"></i>
+                    @else
+                        <i class="fa fa-times icon-red-center" aria-hidden="true"></i>
+                    @endif
                 </td>
                 <td>
                     {{ $user->max_disk_space }}
@@ -40,7 +51,7 @@
                     {{ $user->created_at }}
                 </td>
                 <td>
-                    <a href="\users\{{$user->id}}\edit" class="btn btn-primary">Edit</a>
+                    <a href="\users\{{$user->id}}\edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> @lang('users.edit')</a>
                 </td>
             </tr>
         @endforeach
