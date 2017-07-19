@@ -91,20 +91,7 @@ class AuthController extends Controller
 
         Auth::guard($this->getGuard())->login($this->create($request->all()));
 
-        $path = public_path().'/'.Auth::user()->name . Auth::user()->id;
-        mkdir($path, 0777);
-        mkdir($path.'/thumbnail', 0777);
-        $path.='/storage';
-        mkdir($path, 0777);
-        Auth::user()->userFile()->create([
-            'name'=>'My storage',
-            'original_name'=>$path,
-            'path'=>'/',
-            'thumb_path' => '/Thumbnail/folder.png',
-            'f_type'=>'folder',
-            'is_folder'=>true,
-            'folder_id'=>0,
-        ]);
+
         $user = Auth::user();
         $user->activation_code = str_random(20);
         $user->save();

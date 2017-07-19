@@ -30,16 +30,41 @@ class FileStorageController extends Controller
         $this->middleware('activate', ['except'=>['publicDownload','share']]);
     }
 
+    public function createRootDirectory(User $user)
+    {
+        $path = public_path().'/'.$user->name . $user->id;
+        mkdir($path, 0777);
+        mkdir($path.'/thumbnail', 0777);
+        $path.='/storage';
+        mkdir($path, 0777);
+        $root = $user->userFile()->create([
+            'name'=>'My storage',
+            'original_name'=>$path,
+            'path'=>'/',
+            'thumb_path' => '/Thumbnail/folder.png',
+            'f_type'=>'folder',
+            'is_folder'=>true,
+            'folder_id'=>0,
+        ]);
+        return $root;
+    }
+
     /**
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function index(){
             $files = UserFile::where([
-                ['user_id','=',Auth::user()->id],
-                ['folder_id','=',0]
-            ])->firstOrFail();
+                ['user_id', '=', Auth::user()->id],
+                ['folder_id', '=', 0]
+            ])->first();
+
+            //$file = $this->createRootDirectory(Auth::user());
+            //dd($file);
+            if($files==NULL) {
+                $files = $this->createRootDirectory(Auth::user());
+            }
             if(\Session::has('folders')) {
-                \Session::put('folders',[]);
+                \Session::put('folders', []);
             }
             return redirect("/storage/$files->id");
     }
@@ -266,6 +291,7 @@ class FileStorageController extends Controller
             ['original_name','LIKE','%'.$request->get('search_str').'%'],
             ['is_folder','!=',1],
         ])->get();
+
 
         return view('file_storage.search',compact('files'));
     }
