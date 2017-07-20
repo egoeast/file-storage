@@ -51,10 +51,13 @@
                     {{ $user->created_at }}
                 </td>
                 <td>
-                    <a href="\users\{{$user->id}}\edit" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> @lang('users.edit')</a>
+                    <a href="\users\{{$user->id}}\edit" class="btn btn-primary" data-toggle="tooltip" title="@lang('users.edit')"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
+                    <a href="#" class="btn btn-danger delete-user"  data-toggle="tooltip" title="@lang('users.delete')" ><i class="fa fa-trash-o" aria-hidden="true"></i> </a>
                 </td>
             </tr>
+
         @endforeach
     </table>
 
 @stop
+
