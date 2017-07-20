@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="/build/css/app.css">
 
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
     <style>
@@ -170,9 +172,12 @@
     <script>
         $(document).ready(function() {
             $('.delete-user').click(function() {
+                alert();
                 if (confirm("Вы уверены, что хотите удалить пользователя?"))
                 {
-                    window.location.href = "/user/delete";
+
+                    window.location.href = "/user/delete/"+$(this).attr("data-user-id");
+
                 }
             });
         });
