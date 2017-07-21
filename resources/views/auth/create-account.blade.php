@@ -2,7 +2,7 @@
 @section('content')
 
 
-    {!! Form::model($user, ['method'=>'PATCH','url'=>'/users/'.$user->id]) !!}
+    {!! Form::open(['url'=>'/users']) !!}
     <div class="form-group">
         {!! Form::label('name', trans('users.name')) !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -11,6 +11,11 @@
     <div class="form-group">
         {!! Form::label('email', trans('users.email')) !!}
         {!! Form::text('email', null, ['class' => 'form-control']) !!}
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('password', trans('users.password')) !!}
+        {!! Form::text('password', null, ['class' => 'form-control']) !!}
     </div>
 
     <div class="form-group">
@@ -38,30 +43,13 @@
 
     </div>
 
-    <div class="form-group">
-        {!! Form::label('created_at', trans('users.created')) !!}
-        {!! Form::input('date','created_at', date('Y-m-d'), ['class' => 'form-control']) !!}
-    </div>
 
     <div class="form-group">
-        {!! Form::submit(trans('users.edit'), ['class' => 'btn btn-primary form-control']) !!}
+        {!! Form::submit(trans('users.create'), ['class' => 'btn btn-primary form-control']) !!}
     </div>
     {!! Form::close() !!}
     @include('errors.list')
 
-            <!-- Rectangular switch -->
-
-
-    <label class="switch">
-        <input type="checkbox">
-        <span class="slider"></span>
-    </label>
-
-    <!-- Rounded switch -->
-    <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
-    </label>
 
 @stop
 

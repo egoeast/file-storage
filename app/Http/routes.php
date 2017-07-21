@@ -47,4 +47,6 @@ Route::post('/rename/{id}','FileStorageController@rename');
 
 Route::resource('users', 'UserController');
 
+Route::post('/users', 'UserController@store');
+
 Route::get('/activation/{code}', 'UserController@activation');

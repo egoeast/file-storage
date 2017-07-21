@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+    <a href="\users\create" class="btn btn-primary" ><i class="fa fa-plus" aria-hidden="true"></i>  @lang('users.create') </a>
+    <br />
+    <br />
     <table class="table table-hover">
         <tr>
             <th>@lang('users.name')</th>
@@ -52,7 +55,7 @@
                 </td>
                 <td>
                     <a href="\users\{{$user->id}}\edit" class="btn btn-primary" data-toggle="tooltip" title="@lang('users.edit')"><i class="fa fa-pencil" aria-hidden="true"></i> </a>
-                    <a href="#" class="btn btn-danger delete-user"  data-toggle="tooltip" title="@lang('users.delete')" ><i class="fa fa-trash-o" aria-hidden="true"></i> </a>
+                    <a href="#" class="btn btn-danger delete-user"  data-user-id="{{$user->id}}" data-toggle="tooltip" title="@lang('users.delete')" ><i class="fa fa-trash-o" aria-hidden="true"></i> </a>
                 </td>
             </tr>
 

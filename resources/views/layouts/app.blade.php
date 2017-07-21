@@ -172,7 +172,7 @@
             $('.delete-user').click(function() {
                 if (confirm("Вы уверены, что хотите удалить пользователя?"))
                 {
-                    window.location.href = "/user/delete";
+                    window.location.href = "/user/delete/"+$(this).attr('data-user-id');
                 }
             });
         });
