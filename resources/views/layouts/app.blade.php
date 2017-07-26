@@ -86,12 +86,59 @@
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    {{-- <script src="{{ elixir('js/all.js') }}"></script> --}}
+    <script src="/build/js/all.js"></script>
+
+
+    <div id="modal-katalog"><!-- Сaмo oкнo -->
+        <span id="modal_close">X</span> <!-- Кнoпкa зaкрыть -->
+        <!-- Тут любoе сoдержимoе -->
+        <form class="form-inline" action = "/rename/'+$id+'"  method = "POST" accept-charset="UTF-8" enctype="multipart/form-data">
+            <input name="_token" type="hidden" value="'+ $token + '">  Rename:<br> <div class="form-group">  <input type="text" class="form-control" name="firstname"><br>
+                <input type="submit" class="btn btn-default " value="Submit">  </div> </form>
+        <div class="debug"></div>
+    </div>
+    <div id="overlay"></div><!-- Пoдлoжкa -->
 
     <script>
+        $(document).ready(function() {
+
+            var modalElement = '#modal-katalog';
+            var modalHeight = $(modalElement).height();
+
+            $('a#rename').click( function(event){
+                event.preventDefault();
+
+                var elementOffset = $(this).offset();
+                var elementOffsetWindow = elementOffset.top-$(window).scrollTop();
+
+
+                $(modalElement)
+                        .css('display', 'block')
+                        .animate({opacity: 1}, 200);
+
+                if(elementOffsetWindow+modalHeight>$(window).height()) {
+                    $(modalElement).offset({ top: elementOffset.top-modalHeight-50, left: elementOffset.left-130 });
+                } else {
+                    $(modalElement).offset({ top: elementOffset.top+30, left: elementOffset.left-130 });
+                }
+            });
+
+            $('#modal_close').click( function(){
+                $(modalElement)
+                        .animate({opacity: 0, top: '45%'}, 200,
+                                function(){
+                                    $(this).css('display', 'none');
+                                }
+                        );
+            });
+        });
+
+    </script>
 
 
 
+    <script>
         $('div.alert').delay(5000).slideUp(300);
 
 

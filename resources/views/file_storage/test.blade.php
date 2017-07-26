@@ -121,8 +121,7 @@
     $(document).ready(function() {
         //Удаление черной рамки на миниатюре
         $('div.image').click(function() {
-            $bord = $('div.image').children(".bord");
-            $bord.css("border"," 0px");
+
         });
         //Очищаем div справа и заполняем данными
         $( 'div.image' ).click(function() {
@@ -131,38 +130,44 @@
             var id=$(this).children(".id").text();
 
 
+
+           // $bord = $('div.image').children(".bord");
+          //  $bord.css("border"," 2px solid black");
+
             var url = "/file";
             $.get(url + '/' + id, function (data) {
                 //success data
+
                 console.log(data);
-                alert(data.original_name);
-                //$('#btn-save').val("update");
+
+
+
+                //alert(data.original_name);
+                $('#single-file-img').attr("src", data.thumb_path);
+                $('#single-file-name').text(data.original_name);
+                $('#single-file-type').text(data.f_type);
+                $('#single-file-size').text(data.size);
+                $('#single-file-created').text(data.created_at);
+
+                if(data.public_id){
+                    $('#single-file-public').attr("href", "/public_link/"+data.public_id );
+                    $('#single-file-public').text("/public_link/"+data.public_id);
+                }else $('#single-file-public').text("");
+
+
+                $('#download').attr("href", "/download/"+id);
+                $('#share').attr("href", "/share/"+id);
+                $('#delete').attr("href", "/delete/"+id);
             })
 
 
 
-            //$public_link = $(this).children(".public_link").text();
-           // $uploaded = $(this).children(".uploaded").text();
-           // $token = $(this).children(".token").text();
-           // $bord = $(this).children(".bord");
-           // $bord.css("border"," 1px solid black");
-           // $a='Uploaded : '+ $uploaded + '<br><br>';
-           /// $('.cont').append($a);
-           // $('.cont').append('<strong>Public URL : </strong>');
-           // if($public_link){
-           //     $a='<a href="'+$public_link+'">'+$public_link+'</a><br><br>';
-           // }else $a='<strong>No</strong><br><br>';
-          //  $('.cont').append($a);
-          //  $a='<a class="btn btn-primary " href="/download/'+$id+'">Download</a>';
-          //  $('.cont').append($a);
-          //  $a='<a class="btn btn-default " href="/share/'+$id+'">Share</a>';
-          //  $('.cont').append($a);
-          //  $a='<a class="btn btn-danger " href="/delete/'+$id+'">Delete</a> <br><br>';
-          //  $('.cont').append($a);
-          //  $a = '<form class="form-inline" action = "/rename/'+$id+'"  method = "POST" accept-charset="UTF-8" enctype="multipart/form-data">'+
-          //          '<input name="_token" type="hidden" value="'+ $token + '">  Rename:<br> <div class="form-group">  <input type="text" class="form-control" name="firstname"><br> ' +
-          //          ' </div><input type="submit" class="btn btn-default " value="Submit">  </div> </form>';
-          //  $('.cont').append($a);
+
+
+
+
+
+
         });
 
     });

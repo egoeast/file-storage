@@ -33,8 +33,8 @@
             @endforeach
                 </div>
         </div>
-        <div class="col-md-4 cont"  >
-
+        <div class="col-md-4">
+            @include('partials.single-file')
         </div>
     </div>
 </div>

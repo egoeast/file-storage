@@ -99,3 +99,72 @@ input:checked + .slider:before {
 }
 
 /*# sourceMappingURL=app.css.map */
+
+
+/*Pop-up*/
+/*Pop-up*/
+#modal-katalog {
+  width: 300px;
+  height: 300px;
+  /* Р aР·РјРµСЂС‹ РґoР»Р¶РЅС‹ Р±С‹С‚СЊ С„РёРєСЃРёСЂoРІaРЅС‹ */
+  border-radius: 5px;
+  border: 3px #000 solid;
+  background: #fff;
+  position: fixed;
+  /* С‡С‚oР±С‹ oРєРЅo Р±С‹Р»o РІ РІРёРґРёРјoР№ Р·oРЅРµ РІ Р»СЋР±oРј РјРµСЃС‚Рµ */
+  top: 45%;
+  /* oС‚СЃС‚СѓРїaРµРј СЃРІРµСЂС…Сѓ 45%, oСЃС‚aР»СЊРЅС‹Рµ 5% РїoРґРІРёРЅРµС‚ СЃРєСЂРёРїС‚ */
+  left: 50%;
+  /* РїoР»oРІРёРЅa СЌРєСЂaРЅa СЃР»РµРІa */
+  margin-top: -150px;
+  margin-left: -150px;
+  /* С‚СѓС‚ РІСЃСЏ РјaРіРёСЏ С†РµРЅС‚СЂoРІРєРё css, oС‚СЃС‚СѓРїaРµРј РІР»РµРІo Рё РІРІРµСЂС… РјРёРЅСѓСЃ РїoР»oРІРёРЅСѓ С€РёСЂРёРЅС‹ Рё РІС‹СЃoС‚С‹ СЃooС‚РІРµС‚СЃС‚РІРµРЅРЅo =) */
+  display: none;
+  /* РІ oР±С‹С‡РЅoРј СЃoСЃС‚oСЏРЅРёРё oРєРЅa РЅРµ РґoР»Р¶РЅo Р±С‹С‚СЊ */
+  opacity: 0;
+  /* РїoР»РЅoСЃС‚СЊСЋ РїСЂoР·СЂaС‡РЅo РґР»СЏ aРЅРёРјРёСЂoРІaРЅРёСЏ */
+  z-index: 5;
+  /* oРєРЅo РґoР»Р¶РЅo Р±С‹С‚СЊ РЅaРёР±oР»РµРµ Р±oР»СЊС€РµРј СЃР»oРµ */
+  padding: 20px 10px;
+}
+/* РљРЅoРїРєa Р·aРєСЂС‹С‚СЊ РґР»СЏ С‚РµС… РєС‚o РІ С‚aРЅРєРµ) */
+#modal-katalog #modal_close {
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  display: block;
+}
+/* РџoРґР»oР¶Рєa */
+#overlay {
+  z-index: 3;
+  /* РїoРґР»oР¶Рєa РґoР»Р¶РЅa Р±С‹С‚СЊ РІС‹С€Рµ СЃР»oРµРІ СЌР»РµРјРµРЅС‚oРІ СЃaР№С‚a, РЅo РЅРёР¶Рµ СЃР»oСЏ РјoРґaР»СЊРЅoРіo oРєРЅa */
+  position: fixed;
+  /* РІСЃРµРіРґa РїРµСЂРµРєСЂС‹РІaРµС‚ РІРµСЃСЊ СЃaР№С‚ */
+  background-color: #000;
+  /* С‡РµСЂРЅaСЏ */
+  opacity: 0.8;
+  /* РЅo РЅРµРјРЅoРіo РїСЂoР·СЂaС‡РЅa */
+  -moz-opacity: 0.8;
+  /* С„РёРєСЃ РїСЂРѕР·СЂР°С‡РЅРѕСЃС‚Рё РґР»СЏ СЃС‚Р°СЂС‹С… Р±СЂР°СѓР·РµСЂРѕРІ */
+  filter: alpha(opacity=80);
+  width: 100%;
+  height: 100%;
+  /* СЂaР·РјРµСЂoРј РІo РІРµСЃСЊ СЌРєСЂaРЅ */
+  top: 0;
+  /* СЃРІРµСЂС…Сѓ Рё СЃР»РµРІa 0, oР±СЏР·aС‚РµР»СЊРЅС‹Рµ СЃРІoР№СЃС‚РІa! */
+  left: 0;
+  cursor: pointer;
+  display: none;
+  /* РІ oР±С‹С‡РЅoРј СЃoСЃС‚oСЏРЅРёРё РµС‘ РЅРµС‚) */
+}
+img {
+  width: 100%;
+  heigh: 100%;
+}
+.category-second {
+  margin-left: 15px;
+  font: 14px bold;
+}

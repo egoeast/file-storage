@@ -17,6 +17,6 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
-    mix.scripts(['app.js'],
+    mix.scripts(['all.js'],
         'public/build/js');
 });

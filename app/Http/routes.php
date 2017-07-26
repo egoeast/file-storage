@@ -19,7 +19,7 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/test', 'FileStorageController@test');
+Route::get('/test/{id}', 'FileStorageController@test');
 
 Route::get('/index','FileStorageController@index');
 

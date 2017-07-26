@@ -269,7 +269,7 @@ class FileStorageController extends Controller
 
         $file->delete();
         $cur_f = \Session::get('_previous');
-        return redirect($cur_f['url']);
+        return redirect()->back();
     }
 
     /**
@@ -310,21 +310,21 @@ class FileStorageController extends Controller
 
     }
 
-    public function test()
+    public function test($id)
     {
-        $file = UserFile::find(101);
+        $file = UserFile::find($id);
         if ($file==Null)
             return view('errors.error');
 
         $folder =\Session::get('folders');
-        $folder = array_add($folder,101, $file->name);
+        $folder = array_add($folder,$id, $file->name);
 
         \Session::put('folders',$folder);
-        \Session::put('current_folder_id',101);
+        \Session::put('current_folder_id',$id);
 
         $files = UserFile::where([
             ['user_id','=',Auth::user()->id],
-            ['folder_id','=',101]
+            ['folder_id','=',$id]
         ])->orderBy('is_folder','desc')->paginate(12);
 
         return view('file_storage.test', compact('files'));
