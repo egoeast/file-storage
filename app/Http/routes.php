@@ -19,6 +19,8 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/test', 'FileStorageController@test');
+
 Route::get('/index','FileStorageController@index');
 
 Route::post('/storage/upload','FileStorageController@upload');
@@ -47,6 +49,10 @@ Route::post('/rename/{id}','FileStorageController@rename');
 
 Route::resource('users', 'UserController');
 
-Route::post('/users', 'UserController@store');
-
 Route::get('/activation/{code}', 'UserController@activation');
+
+Route::get('/file/{id}',function($id){
+    $file = \App\UserFile::find($id);
+
+    return Response::json($file);
+});

@@ -16,7 +16,7 @@ elixir(function(mix) {
         'public/build/css');
 });
 
-//elixir(function(mix) {
-//    mix.scripts(['scrollUp.js', 'popUp.js'],
-//        'public/build/js');
-//});
+elixir(function(mix) {
+    mix.scripts(['app.js'],
+        'public/build/js');
+});

@@ -309,4 +309,24 @@ class FileStorageController extends Controller
         return redirect($cur_f['url']);
 
     }
+
+    public function test()
+    {
+        $file = UserFile::find(101);
+        if ($file==Null)
+            return view('errors.error');
+
+        $folder =\Session::get('folders');
+        $folder = array_add($folder,101, $file->name);
+
+        \Session::put('folders',$folder);
+        \Session::put('current_folder_id',101);
+
+        $files = UserFile::where([
+            ['user_id','=',Auth::user()->id],
+            ['folder_id','=',101]
+        ])->orderBy('is_folder','desc')->paginate(12);
+
+        return view('file_storage.test', compact('files'));
+    }
 }
