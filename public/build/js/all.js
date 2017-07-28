@@ -18,16 +18,17 @@ $(document).ready(function() {
         $.get(url + '/' + id, function (data) {
             //success data
 
-            console.log(data);
+            //console.log(data);
 
 
 
             //alert(data.original_name);
-            $('#single-file-img').attr("src", data.thumb_path);
-            $('#single-file-name').text(data.original_name);
-            $('#single-file-type').text(data.f_type);
-            $('#single-file-size').text(data.size);
-            $('#single-file-created').text(data.created_at);
+            $(".single-file-container").css("display", "block");
+            $("#single-file-img").attr("src", data.thumb_path);
+            $("#single-file-name").text(data.original_name);
+            $("#single-file-type").text(data.f_type);
+            $("#single-file-size").text(data.size);
+            $("#single-file-created").text(data.created_at);
 
             if(data.public_id){
                 $('#single-file-public').attr("href", "/public_link/"+data.public_id );
@@ -36,8 +37,8 @@ $(document).ready(function() {
 
 
             $('#download').attr("href", "/download/"+id);
-            $('#share').attr("href", "/share/"+id);
-            $('#delete').attr("href", "/delete/"+id);
+            $('#share').attr("data-file-id", id);
+            $('#delete').attr("data-file-id", id);
         })
 
 

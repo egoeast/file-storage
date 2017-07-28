@@ -184,12 +184,69 @@
             $('.delete-user').click(function() {
                 if (confirm("Вы уверены, что хотите удалить пользователя?"))
                 {
-                    window.location.href = "/user/delete/"+$(this).attr('data-user-id');
+                    var id = $(this).attr('data-user-id');
+                    $.ajax({
+                        url: '/users/delete/'+id,
+                        type: 'get',
+                        success: function(result) {
+                            $("#"+id).remove();
+                        },
+                        error: function(result) {
+                            alert("Error");
+                        }
+                    });
                 }
             });
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            $("#share").click(function(){
+                var id = $(this).attr("data-file-id");
+                var url = "/share/" + id;
+                $.get(url, function (data) {
+                    $('#single-file-public').attr("href", "/public_link/"+data);
+                    $('#single-file-public').text("/public_link/"+data);
+                });
+            });
+        });
+        </script>
+
+    <script>
+        $(document).ready(function() {
+            $("#delete").click(function() {
+                if (confirm("Вы уверены, что хотите удалить этот файл?"))
+                {
+                    var id = $(this).attr("data-file-id");
+                    var url = "/delete/" + id;
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        success: function(result) {
+                            $("#"+id).remove();
+                            $(".single-file-container").css("display", "none");
+                            //alert("DELETED!!!");
+                        },
+                        error: function(result) {
+                            alert("Error");
+                        }
+                    });
+                   // var id = $(this).attr('data-user-id');
+                   // $.ajax({
+                   //     url: '/users/delete/'+id,
+                   //     type: 'get',
+                   //     success: function(result) {
+                   //         $("#"+id).remove();
+                   //     },
+                   //     error: function(result) {
+                   //         alert("Error");
+                   //     }
+                    //});
+                }
+            });
+        });
+    </script>
 
 
 </body>

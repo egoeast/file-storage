@@ -3,7 +3,7 @@
         <div class="row" >
             <!-- {{ $i = 0 }} -->
             @foreach($files as $file)
-                <div class="col-md-3" >
+                <div class="col-md-3" id="{{$file->id}}" >
 
                     @if($file->f_type=='folder')
                         <div >

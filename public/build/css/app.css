@@ -161,10 +161,18 @@ input:checked + .slider:before {
   /* РІ oР±С‹С‡РЅoРј СЃoСЃС‚oСЏРЅРёРё РµС‘ РЅРµС‚) */
 }
 img {
-  width: 100%;
+
   heigh: 100%;
 }
 .category-second {
   margin-left: 15px;
   font: 14px bold;
+}
+
+.single-file-container {
+  display: none;
+}
+
+.image {
+  cursor: pointer;
 }

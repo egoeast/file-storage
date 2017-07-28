@@ -93,4 +93,10 @@ class UserController extends Controller
         $user->save();
         return redirect()->route('users.index');
     }
+
+    public function delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+    }
 }

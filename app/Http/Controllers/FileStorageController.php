@@ -252,7 +252,8 @@ class FileStorageController extends Controller
         $file->save();
 
         $cur_f = \Session::get('_previous');
-        return redirect($cur_f['url']);
+        //return redirect($cur_f['url']);
+        return $file->public_id;
     }
 
     /**

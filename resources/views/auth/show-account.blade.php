@@ -16,7 +16,7 @@
             <th>@lang('users.action')</th>
         </tr>
     @foreach($users as $user)
-            <tr>
+            <tr id="{{$user->id}}">
                 <td>
                   {{ $user->name }}
                 </td>
