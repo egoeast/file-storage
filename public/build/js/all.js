@@ -24,6 +24,7 @@ $(document).ready(function() {
 
             //alert(data.original_name);
             $(".single-file-container").css("display", "block");
+            $(".single-file-container").attr("data-file-id", id);
             $("#single-file-img").attr("src", data.thumb_path);
             $("#single-file-name").text(data.original_name);
             $("#single-file-type").text(data.f_type);

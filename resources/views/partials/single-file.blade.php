@@ -1,4 +1,4 @@
-<div class="single-file-container">
+<div class="single-file-container" data-file-id="">
     <img id="single-file-img" class="img-thumbnail">
     <h3 id="single-file-name"></h3>
     <p>@lang('storage.file_type') <span id="single-file-type"></span></p>

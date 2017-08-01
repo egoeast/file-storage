@@ -9,8 +9,6 @@ $(document).ready(function() {
         $(this).clone().appendTo('.cont');
         var id=$(this).children(".id").text();
 
-
-
         // $bord = $('div.image').children(".bord");
         //  $bord.css("border"," 2px solid black");
 
@@ -19,8 +17,6 @@ $(document).ready(function() {
             //success data
 
             //console.log(data);
-
-
 
             //alert(data.original_name);
             $(".single-file-container").css("display", "block");
@@ -35,20 +31,9 @@ $(document).ready(function() {
                 $('#single-file-public').text("/public_link/"+data.public_id);
             }else $('#single-file-public').text("");
 
-
             $('#download').attr("href", "/download/"+id);
             $('#share').attr("data-file-id", id);
             $('#delete').attr("data-file-id", id);
         })
-
-
-
-
-
-
-
-
-
     });
-
 });

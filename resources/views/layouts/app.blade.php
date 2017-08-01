@@ -93,14 +93,16 @@
     <div id="modal-katalog"><!-- Сaмo oкнo -->
         <span id="modal_close">X</span> <!-- Кнoпкa зaкрыть -->
         <!-- Тут любoе сoдержимoе -->
-        <form class="form-inline" action = "/rename/'+$id+'"  method = "POST" accept-charset="UTF-8" enctype="multipart/form-data">
-            <input name="_token" type="hidden" value="'+ $token + '">  Rename:<br> <div class="form-group">  <input type="text" class="form-control" name="firstname"><br>
+        <form class="form-inline" id="rename-form" action = "javascript:void(null);"  method = "PUT" accept-charset="UTF-8" enctype="multipart/form-data" onsubmit="call()">
+            <input name="_token" type="hidden" value="'+ $token + '">  Rename:<br> <div class="form-group">
+
+                <input type="text" class="form-control" id="new-name" name="firstname"><br>
                 <input type="submit" class="btn btn-default " value="Submit">  </div> </form>
         <div class="debug"></div>
     </div>
     <div id="overlay"></div><!-- Пoдлoжкa -->
-
-    <script>
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    <script type="text/javascript" language="javascript">
         $(document).ready(function() {
 
             var modalElement = '#modal-katalog';
@@ -108,6 +110,7 @@
 
             $('a#rename').click( function(event){
                 event.preventDefault();
+                $("#new-name").val($("#single-file-name").text());
 
                 var elementOffset = $(this).offset();
                 var elementOffsetWindow = elementOffset.top-$(window).scrollTop();
@@ -125,14 +128,48 @@
             });
 
             $('#modal_close').click( function(){
-                $(modalElement)
-                        .animate({opacity: 0, top: '45%'}, 200,
-                                function(){
-                                    $(this).css('display', 'none');
-                                }
-                        );
+                modalClose();
             });
         });
+
+        function modalClose() {
+            var modalElement = '#modal-katalog';
+            $(modalElement)
+                    .animate({opacity: 0, top: '45%'}, 200,
+                            function(){
+                                $(this).css('display', 'none');
+                            }
+                    );
+        }
+
+
+        function call() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+            var modalElement = '#modal-katalog';
+            var msg = {
+                firstname: $('#new-name').val(),
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/rename/' +  $(".single-file-container").attr("data-file-id"),
+                data: msg,
+                success: function(data) {
+                    $("#single-file-name").text(msg.firstname);
+                    modalClose();
+                },
+                error:  function(xhr, str){
+                    alert('Возникла ошибка: ' + xhr.responseCode);
+                }
+            });
+
+        }
+
+
+
 
     </script>
 
@@ -187,7 +224,7 @@
                     var id = $(this).attr('data-user-id');
                     $.ajax({
                         url: '/users/delete/'+id,
-                        type: 'get',
+                        type: 'GET',
                         success: function(result) {
                             $("#"+id).remove();
                         },

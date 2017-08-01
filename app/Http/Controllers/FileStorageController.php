@@ -302,12 +302,15 @@ class FileStorageController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function rename($id, Request $request){
+    public function rename($id,Request $request){
+
+        //dd($request);
         $file = UserFile::findOrFail($id);
         $file->original_name = $request->firstname;
         $file->save();
-        $cur_f = \Session::get('_previous');
-        return redirect($cur_f['url']);
+        //$cur_f = \Session::get('_previous');
+        //return redirect($cur_f['url']);
+        return $request->firstname;
 
     }
 

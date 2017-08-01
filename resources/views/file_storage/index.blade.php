@@ -41,11 +41,11 @@
                         @else
                         {{ $bar = "progress-bar-danger" }}
                         @endif
-                                -->
+                        -->
                         <div class="row">
                             <div class="progress">
                                 <div class="progress-bar {{ $bar }} progress-bar-striped active" role="progressbar" aria-valuenow="{{ $capacity  }}"
-                                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $capacity  }}%">
+                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ $capacity."%" }}">
                                     <b style="color: black">{{ Auth::user()->disk_space }}/{{ Auth::user()->max_disk_space }} Mb</b>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
     <hr>
     <div class="row">
         <div class="col-md-8">
-            <img src="\Thumbnail\folder.png" width="35" height="35" >
+            <img class="folder-img" src="\Thumbnail\folder.png" width="35" height="35" >
             @foreach(\Session::get('folders') as $key=>$val)
                 <a style="font-size: 20px;" href="\storage\move\{{ $key }}" ><b>  {{ $val }}</b></a><b> >> </b>
             @endforeach
