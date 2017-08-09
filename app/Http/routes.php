@@ -58,3 +58,7 @@ Route::get('/file/{id}',function($id){
 
     return Response::json($file);
 });
+
+Route::get('/test', function(){
+    return view('test');
+});
