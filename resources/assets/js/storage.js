@@ -1,10 +1,3 @@
-$('div.alert').delay(5000).slideUp(300);
-
-
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
 $(document).ready(function() {
 
     $("#delete").click(function() {
@@ -175,5 +168,3 @@ $(function() {
     });
 
 });
-
-//# sourceMappingURL=all.js.map

@@ -13,22 +13,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="/build/css/app.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
-    <link rel="stylesheet" href="/build/css/app.css">
 
 
-
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
@@ -102,119 +91,6 @@
     </div>
     <div id="overlay"></div><!-- Пoдлoжкa -->
     <meta name="_token" content="{!! csrf_token() !!}" />
-    <script type="text/javascript" language="javascript">
-        $(document).ready(function() {
-
-            var modalElement = '#modal-katalog';
-            var modalHeight = $(modalElement).height();
-
-            $('a#rename').click( function(event){
-                event.preventDefault();
-                $("#new-name").val($("#single-file-name").text());
-
-                var elementOffset = $(this).offset();
-                var elementOffsetWindow = elementOffset.top-$(window).scrollTop();
-
-
-                $(modalElement)
-                        .css('display', 'block')
-                        .animate({opacity: 1}, 200);
-
-                if(elementOffsetWindow+modalHeight>$(window).height()) {
-                    $(modalElement).offset({ top: elementOffset.top-modalHeight-50, left: elementOffset.left-130 });
-                } else {
-                    $(modalElement).offset({ top: elementOffset.top+30, left: elementOffset.left-130 });
-                }
-            });
-
-            $('#modal_close').click( function(){
-                modalClose();
-            });
-        });
-
-        function modalClose() {
-            var modalElement = '#modal-katalog';
-            $(modalElement)
-                    .animate({opacity: 0, top: '45%'}, 200,
-                            function(){
-                                $(this).css('display', 'none');
-                            }
-                    );
-        }
-
-
-        function call() {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                }
-            });
-            var modalElement = '#modal-katalog';
-            var msg = {
-                firstname: $('#new-name').val(),
-            }
-            $.ajax({
-                type: 'POST',
-                url: '/rename/' +  $(".single-file-container").attr("data-file-id"),
-                data: msg,
-                success: function(data) {
-                    $("#single-file-name").text(msg.firstname);
-                    modalClose();
-                },
-                error:  function(xhr, str){
-                    alert('Возникла ошибка: ' + xhr.responseCode);
-                }
-            });
-
-        }
-
-
-
-
-    </script>
-
-
-
-    <script>
-        $('div.alert').delay(5000).slideUp(300);
-
-
-        $(function() {
-
-            // We can attach the `fileselect` event to all file inputs on the page
-            $(document).on('change', ':file', function() {
-                var input = $(this),
-                        numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-                input.trigger('fileselect', [numFiles, label]);
-            });
-
-            // We can watch for our custom `fileselect` event like this
-            $(document).ready( function() {
-                $(':file').on('fileselect', function(event, numFiles, label) {
-
-                    var input = $(this).parents('.input-group').find(':text'),
-                            log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-                    if( input.length ) {
-                        input.val(log);
-                    } else {
-                        if( log ) alert(log);
-                    }
-
-                });
-            });
-
-        });
-
-    </script>
-
-<!-- Bootstrap tooltip-->
-    <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
 
     <script>
         $(document).ready(function() {
@@ -237,53 +113,7 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#share").click(function(){
-                var id = $(this).attr("data-file-id");
-                var url = "/share/" + id;
-                $.get(url, function (data) {
-                    $('#single-file-public').attr("href", "/public_link/"+data);
-                    $('#single-file-public').text("/public_link/"+data);
-                });
-            });
-        });
-        </script>
 
-    <script>
-        $(document).ready(function() {
-            $("#delete").click(function() {
-                if (confirm("Вы уверены, что хотите удалить этот файл?"))
-                {
-                    var id = $(this).attr("data-file-id");
-                    var url = "/delete/" + id;
-                    $.ajax({
-                        url: url,
-                        type: 'get',
-                        success: function(result) {
-                            $("#"+id).remove();
-                            $(".single-file-container").css("display", "none");
-                            //alert("DELETED!!!");
-                        },
-                        error: function(result) {
-                            alert("Error");
-                        }
-                    });
-                   // var id = $(this).attr('data-user-id');
-                   // $.ajax({
-                   //     url: '/users/delete/'+id,
-                   //     type: 'get',
-                   //     success: function(result) {
-                   //         $("#"+id).remove();
-                   //     },
-                   //     error: function(result) {
-                   //         alert("Error");
-                   //     }
-                    //});
-                }
-            });
-        });
-    </script>
 
 
 </body>
