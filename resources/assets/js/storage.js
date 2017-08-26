@@ -42,7 +42,7 @@ $(document).ready(function() {
         $('.cont').empty();
         $(this).clone().appendTo('.cont');
         var id=$(this).children(".id").text();
-
+        alert(id);
         // $bord = $('div.image').children(".bord");
         //  $bord.css("border"," 2px solid black");
 
@@ -50,10 +50,8 @@ $(document).ready(function() {
         $.get(url + '/' + id, function (data) {
             //success data
 
-            //console.log(data);
-
-            //alert(data.original_name);
             $(".single-file-container").css("display", "block");
+            $(".single-file-container").attr("data-file-id", id);
             $("#single-file-img").attr("src", data.thumb_path);
             $("#single-file-name").text(data.original_name);
             $("#single-file-type").text(data.f_type);

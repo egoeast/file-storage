@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>@lang('app.title')</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -16,9 +16,8 @@
     <link rel="stylesheet" href="/build/css/app.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
-
-
 </head>
+
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -72,49 +71,14 @@
 
     </div>
 
+
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/all.js') }}"></script> --}}
     <script src="/build/js/all.js"></script>
-
-
-    <div id="modal-katalog"><!-- Сaмo oкнo -->
-        <span id="modal_close">X</span> <!-- Кнoпкa зaкрыть -->
-        <!-- Тут любoе сoдержимoе -->
-        <form class="form-inline" id="rename-form" action = "javascript:void(null);"  method = "PUT" accept-charset="UTF-8" enctype="multipart/form-data" onsubmit="call()">
-            <input name="_token" type="hidden" value="'+ $token + '">  Rename:<br> <div class="form-group">
-
-                <input type="text" class="form-control" id="new-name" name="firstname"><br>
-                <input type="submit" class="btn btn-default " value="Submit">  </div> </form>
-        <div class="debug"></div>
-    </div>
-    <div id="overlay"></div><!-- Пoдлoжкa -->
-    <meta name="_token" content="{!! csrf_token() !!}" />
-
-    <script>
-        $(document).ready(function() {
-            $('.delete-user').click(function() {
-                if (confirm("Вы уверены, что хотите удалить пользователя?"))
-                {
-                    var id = $(this).attr('data-user-id');
-                    $.ajax({
-                        url: '/users/delete/'+id,
-                        type: 'GET',
-                        success: function(result) {
-                            $("#"+id).remove();
-                        },
-                        error: function(result) {
-                            alert("Error");
-                        }
-                    });
-                }
-            });
-        });
-    </script>
-
-
-
+    <script src="/build/js/storage.js"></script>
+    <script src="/build/js/users.js"></script>
 
 </body>
 </html>

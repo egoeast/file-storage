@@ -17,6 +17,10 @@ elixir(function(mix) {
 });
 
 elixir(function(mix) {
-    mix.scripts(['app.js', 'storage.js'],
+    mix.scripts(['app.js'],
         'public/build/js/all.js');
+    mix.scripts(['storage.js'],
+        'public/build/js/storage.js');
+    mix.scripts(['users.js'],
+        'public/build/js/users.js');
 });
