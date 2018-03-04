@@ -29,8 +29,8 @@ class UserController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('blocking');
-        $this->middleware('admin', ['except'=>'activation']);
-        $this->middleware('activate', ['except'=>'activation']);
+        $this->middleware('admin', ['except' => 'activation']);
+        $this->middleware('activate', ['except' => 'activation']);
 
     }
 
@@ -50,7 +50,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('auth.edit-account')->with('user',$user);
+        return view('auth.edit-account')->with('user', $user);
     }
 
     /**
@@ -58,7 +58,7 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update( $id, UserRequest $request)
+    public function update($id, UserRequest $request)
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
@@ -72,22 +72,27 @@ class UserController extends Controller
     public function activation($code)
     {
         $user = User::where([
-            ['activation_code','=',$code],
+            ['activation_code', '=', $code],
         ])->first();
         $user->is_active = 1;
         $user->save();
-        return view('errors.error')->with('message','Your account is activated now.');
+        return view('errors.error')->with('message', 'Your account is activated now.');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('auth.create-account');
     }
 
+    /**
+     * @param UserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(UserRequest $request)
     {
-        //dd($request);
-        //User::create($request->all());
         $user = User::create($request->all());
         $user->password = bcrypt($request['password']);
         $user->save();

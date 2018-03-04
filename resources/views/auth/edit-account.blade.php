@@ -1,30 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="make-switch">
-        <input type="checkbox" checked>
-    </div>
-
-
-    <link href="/build/css/bootstrap-switch.css" rel="stylesheet">
-    <script src="/build/js/bootstrap-switch.js"></script>
-    <input type="checkbox" name="my-checkbox" checked>
-    <script>
-    $("[name='my-checkbox']").bootstrapSwitch();
-    </script>
-
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" data-toggle="toggle">
-            Option one is enabled
-        </label>
-    </div>
-    <div class="checkbox disabled">
-        <label>
-            <input type="checkbox" disabled data-toggle="toggle">
-            Option two is disabled
-        </label>
-    </div>
     {!! Form::model($user, ['method'=>'PATCH','url'=>'/users/'.$user->id]) !!}
     <div class="form-group">
         {!! Form::label('name', trans('users.name')) !!}
@@ -46,14 +22,6 @@
         {!! Form::label('is_admin', trans('users.is_admin')) !!}
         {!! Form::checkbox('is_admin', 1) !!}
     </div>
-
-    <li class="list-group-item">
-        Bootstrap Switch Info
-        <div class="material-switch ">
-            <input name="is_admin" type="checkbox" value="1" id="is_admin"/>
-            <label for="someSwitchOptionInfo" class="label-info"></label>
-        </div>
-    </li>
 
     <div class="form-group">
         {!! Form::hidden('is_blocked', 0) !!}
