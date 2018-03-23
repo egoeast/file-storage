@@ -61,6 +61,19 @@
                             </ul>
                         </li>
                     @endif
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            {{ Config::get('app.locale') }} <i class="fa fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-langs">
+                            @foreach(config('app.locales') as $k=>$val)
+                                @if(config('app.locale') != $val)
+                                    <li style="list-style:none;"><a href="{{route('set-lang', $val) }}"> {{ $val }}</a></li>
+                                @endif
+                            @endforeach
+
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

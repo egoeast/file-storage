@@ -23,7 +23,7 @@ Route::get('/test/{id}', 'FileStorageController@test');
 
 Route::get('/index','FileStorageController@index');
 
-Route::post('/storage/upload','FileStorageController@upload');
+Route::post('/storage/upload','FileStorageController@uploadFile');
 
 Route::get('/send', 'FileStorageController@sendM');
 
@@ -62,3 +62,10 @@ Route::get('/file/{id}',function($id){
 Route::get('/test', function(){
     return view('test');
 });
+
+Route::get('set-lang/{id}', ['as' => 'set-lang', 'uses' => 'HomeController@setLang']);
+
+//Route::group([ 'middleware' => ['maintenance_mode', 'locale']], function() {
+    //Change language
+  //  Route::get('set-lang/{id}', ['as' => 'set-lang', 'uses' => 'HomeController@setLang']);
+//});

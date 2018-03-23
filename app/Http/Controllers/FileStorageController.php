@@ -8,15 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
-use Mail;
 use Intervention\Image;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class FileStorageController extends Controller
 {
-    private $folder = '';
     protected $file_max_size = 10;
     protected $thumbnails = array(
         'pdf' => '/Thumbnail/pdf.png',
@@ -39,6 +35,7 @@ class FileStorageController extends Controller
         $this->middleware('auth', ['except' => ['publicDownload', 'share']]);
         $this->middleware('blocking', ['except' => ['publicDownload', 'share']]);
         $this->middleware('activate', ['except' => ['publicDownload', 'share']]);
+        $this->middleware('setLang');
     }
 
     /**
@@ -74,8 +71,6 @@ class FileStorageController extends Controller
             ['folder_id', '=', 0]
         ])->first();
 
-        //$file = $this->createRootDirectory(Auth::user());
-        //dd($file);
         if ($files == NULL) {
             $files = $this->createRootDirectory(Auth::user());
         }
@@ -138,21 +133,22 @@ class FileStorageController extends Controller
     /**
      * @param $filePath
      * @param $fileName
+     * @return string
      */
     private function makeImageThumbnail($filePath, $fileName)
     {
         $thumbnail_path = $filePath . self::THUMBNAIL_PATH . '/' . $fileName;
         Image\Facades\Image::make(public_path() . $filePath . self::STORAGE_PATH . '/' . $fileName)->fit(self::THUMBNAIL_SIZE)->save(public_path() . $thumbnail_path);
+        return $thumbnail_path;
     }
 
     /**
-     * @param $file
-     * @return array|string
+     * @param $type
+     * @return array
      */
-    private function defineFileThumbnail($file)
+    private function defineFileThumbnail($type)
     {
-        $thumbnail_path = '/Thumbnail/file.png';
-        switch ($file->getMimeType()) {
+        switch ($type) {
             case 'application/pdf':
                 $thumbnail_path = $this->thumbnails['pdf'];
                 break;
@@ -175,7 +171,7 @@ class FileStorageController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function upload(Request $request)
+    public function uploadFile(Request $request)
     {
 
         if (Input::hasFile('uploadFile')) {
@@ -189,24 +185,13 @@ class FileStorageController extends Controller
                         $size = $file->getSize() / 1024;
                         $disk_space = Auth::user()->disk_space + $size / 1024;
                         Auth::user()->update(['disk_space' => $disk_space]);
+
                         $file->move(public_path() . $filePath . self::STORAGE_PATH, $fileName);
 
-
-                        //dd($this->defineFileThumbnail($file));
-
                         if (($type == 'image/jpeg') || ($type == 'image/png')) {
-                            $thumbnail_path = $filePath . '/thumbnail/' . $fileName;
-                            Image\Facades\Image::make(public_path() . $filePath . '/storage/' . $fileName)->fit(self::THUMBNAIL_SIZE)->save(public_path() . $thumbnail_path);
-                        } elseif ($type == 'application/pdf') {
-                            $thumbnail_path = '/Thumbnail/pdf.png';
-                        } elseif ($type == 'text/plain') {
-                            $thumbnail_path = '/Thumbnail/txt.png';
-                        } elseif ($type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
-                            $thumbnail_path = '/Thumbnail/doc.png';
-                        } elseif ($type == 'application/zip') {
-                            $thumbnail_path = '/Thumbnail/zip.png';
+                            $thumbnail_path = $this->makeImageThumbnail($filePath, $fileName);
                         } else {
-                            $thumbnail_path = '/Thumbnail/file.png';
+                            $thumbnail_path = $this->defineFileThumbnail($type);
                         }
 
                         UserFile::create([
@@ -219,13 +204,13 @@ class FileStorageController extends Controller
                             'thumb_path' => $thumbnail_path,
                             'folder_id' => \Session::get('current_folder_id'),
                         ]);
-                        \Session::flash('flash_message', 'Your file has been uploaded!');
-                    } else \Session::flash('flash_message_danger', "Your file " . $file->getClientOriginalName() . " is to big!");
+                        \Session::flash('flash_message', trans('messages.file_uploaded'));
+                    } else \Session::flash('flash_message_danger', trans('messages.file_to_big', ['file_name' => $file->getClientOriginalName()]));
 
 
-                } else \Session::flash('flash_message_danger', "Not enough free disk space! Please delete some files and try again");
+                } else \Session::flash('flash_message_danger', trans('messages.not_enough_space'));
             }
-        } else \Session::flash('flash_message_danger', "You did not specify a file path!");
+        } else \Session::flash('flash_message_danger',  trans('messages.not_specify'));
         $cur_f = \Session::get('_previous');
         return redirect($cur_f['url']);
     }
@@ -257,7 +242,7 @@ class FileStorageController extends Controller
                 'is_folder' => true,
                 'folder_id' => \Session::get('current_folder_id'),
             ]);
-        } else \Session::flash('flash_message_danger', "Folder with this name already exist!");
+        } else \Session::flash('flash_message_danger', trans('messages.folder_exist'));
         $cur_f = \Session::get('_previous');
         return redirect($cur_f['url']);
     }
@@ -279,7 +264,7 @@ class FileStorageController extends Controller
         );
         if (file_exists($file_path))
             return response()->download($file_path, $file->original_name, $headers);
-        else return view('errors.error')->with('message', 'File does not exist');
+        else return view('errors.error')->with('message',  trans('messages.not_exist'));
     }
 
     /**
@@ -298,7 +283,7 @@ class FileStorageController extends Controller
         );
         if (file_exists($file_path))
             return response()->download($file_path, $file->original_name, $headers);
-        else return view('errors.error')->with('message', 'File does not exist');
+        else return view('errors.error')->with('message', trans('messages.not_exist'));
     }
 
     /**
@@ -312,8 +297,6 @@ class FileStorageController extends Controller
         $file->public_id = str_random(10);
         $file->save();
 
-        $cur_f = \Session::get('_previous');
-        //return redirect($cur_f['url']);
         return $file->public_id;
     }
 

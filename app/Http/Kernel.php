@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'blocking'=> \App\Http\Middleware\RedirectIfBlocked::class,
         'admin'=> \App\Http\Middleware\RedirectIfNotAdministrator::class,
         'activate'=> \App\Http\Middleware\RedirectIfNotActivated::class,
+        'setLang'=> \App\Http\Middleware\SetLanguage::class,
     ];
 }
